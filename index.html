@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Weather App</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+
+    <div class="row no-gutters">
+        <div class="col-md-6  no-gutters">
+            <div class="leftside d-flex justify-content-center align-items-center">
+                <div id="app-container">
+                    <div id="name">
+                        <p>The Weather App</p>
+                    </div>
+                    <h4>
+                        <span id="temp"></span><sup>o</sup>C
+                    </h4>
+                    <!-- <div id="temp">
+                        <p><span id="temp-value"></span><sup>0</sup>C</p>
+                        <p><span id="temp-value">24</span><span id="temp-unit">&#8451</span></p>
+                    </div> -->
+                    <div id="location">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6  no-gutters">
+            <div class="rightside d-flex justify-content-center align-items-center">
+                <div id="illustration">
+                    <div class="col-xs-3 col-md-6" style = "text-align: center;">
+                        <img src="illustration1.png" alt="Illustration">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        link = 'https://api.openweathermap.org/data/2.5/weather?q=Visakhapatnam&appid=8765ce5084e181013ff860a12385be11'
+        var request = new XMLHttpRequest();
+        request.open('GET',link,true);
+        request.onload = function(){
+            var obj = JSON.parse(this.response);
+            console.log(obj);
+            const {feels_like} = obj.main;
+            document.getElementById('location').innerHTML = obj.name;
+            // document.getElementById('temp').innerHTML = obj.main.temp-273.15;
+            document.getElementById('temp').innerHTML = Math.round(feels_like-274);
+        }
+        if(request.status==200){
+            console.log("ERROR");
+        }
+        request.send();
+    </script>
+    <!-- <script src="'script.js"></script> -->
+</body>
+</html>
